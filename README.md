@@ -1,6 +1,8 @@
-# in+
+# in+ [![Build Status][1]][2]
 
 A clojure microlibrary to help with using deep nested objects.
+
+[![Clojars Project](http://clojars.org/inplus/latest-version.svg)](http://clojars.org/inplus)
 
 ## Using
 
@@ -50,3 +52,7 @@ A clojure microlibrary to help with using deep nested objects.
 ## License
 
 MIT license in LICENSE file.
+
+
+[1]: https://travis-ci.org/Rafflecopter/clj-inplus.png?branch=master
+[2]: http://travis-ci.org/Rafflecopter/clj-inplus
