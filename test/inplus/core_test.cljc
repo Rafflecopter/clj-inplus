@@ -59,3 +59,15 @@
            (in+/assoc-in+ tstobj [:a :b {:id :mm} :x] :y)))))
 
 ;; TODO add dissoc-in+-test
+(deftest contains?+-test
+  (testing "null path"
+    (is (true? (in+/contains?+ tstobj []))))
+  (testing "normal paths"
+    (is (true? (in+/contains?+ tstobj [:a])))
+    (is (true? (in+/contains?+ tstobj [:a :b]))))
+  (testing "with a matching path"
+    (is (true? (in+/contains?+ tstobj [:a :b {:id :gg}])))
+    (is (true? (in+/contains?+ tstobj [:a :b {:id :ff} :c]))))
+  (testing "not contains"
+    (is (false? (in+/contains?+ tstobj [:c])))
+    (is (false? (in+/contains?+ tstobj [:a :b {:id :xx}])))))

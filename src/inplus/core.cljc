@@ -92,3 +92,11 @@
   (if (map? (last path))
     (update-in+ obj (butlast path) #(-> % vec (remove-matching (last path))))
     (update-in+ obj (butlast path) dissoc (last path) val)))
+
+(defn contains?+
+  "Check whether the deep structure contains a path.
+  Handles path elements that are matching-schemas to match a single element in a collection"
+  [obj path]
+  (cond (empty? path) true
+        (map? (last path)) (some? (get-in+ obj path))
+        :else (contains? (get-in+ obj (butlast path)) (last path))))
