@@ -1,4 +1,4 @@
-(defproject inplus "0.1.1"
+(defproject com.rafflecopter/inplus "0.1.1"
   :description "Extended functionality for *-in functions"
   :url "http://github.com/Rafflecopter/clj-inplus"
   :license {:name "MIT"
