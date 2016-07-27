@@ -5,6 +5,7 @@
 
 
 (def ^:private tstobj {:a {:b [{:id :gg} {:id :ff :c 1}]}})
+(def ^:private seqobj {:a {:b '({:id :gg} {:id :ff :c 1})}})
 
 (deftest get-in+-test
   (testing "null path"
@@ -35,7 +36,10 @@
     (is (= (update-in tstobj [:a :b] conj {:id :mm :c 1})
            (in+/update-in+ tstobj [:a :b {:id :mm}] assoc :c 1)))
     (is (= {:a [{:x :y :z :z}]}
-           (in+/update-in+ {} [:a {:x :y}] assoc :z :z)))))
+           (in+/update-in+ {} [:a {:x :y}] assoc :z :z))))
+  (testing "works with seqs"
+    (is (= (in+/update-in+ seqobj [:a :b {:id :gg}] assoc :foo "bar")
+           {:a {:b '({:id :gg :foo "bar"} {:id :ff :c 1})}}))))
 
 (deftest assoc-in+-test
   (testing "null path"

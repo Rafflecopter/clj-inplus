@@ -66,11 +66,17 @@
   (if (nil? key)
     (apply f obj args)
     (cond
-      (and (vector? obj) (not (map? key)))
-        (throw (#?(:clj Exception. :cljs js/Error.) "spec must be provided for list collections"))
-      (vector? obj)  (if-let [subobj (get-matching obj key)]
-                      (assoc-matching obj key (apply update-in+ subobj rest f args))
-                      (conj obj (apply update-in+ key rest f args)))
+      (and (vector? obj)
+           (not (map? key)))
+      (throw (#?(:clj Exception. :cljs js/Error.)
+              "spec must be provided for list collections"))
+
+      (or (vector? obj)
+          (seq? obj))
+      (if-let [subobj (get-matching obj key)]
+        (assoc-matching obj key (apply update-in+ subobj rest f args))
+        (conj obj (apply update-in+ key rest f args)))
+
       :else (let [subobj (or (get obj key) (if (map? (first rest)) [] {}))
                   subobj (apply update-in+ subobj rest f args)]
               (assoc obj key subobj)))))
